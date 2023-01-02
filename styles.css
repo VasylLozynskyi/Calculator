@@ -48,7 +48,7 @@ input {
 .button-0 {
     width: 150px;
 }
-@media (max-width: 600px) {
+@media (max-width: 1024px) {
     .container {
         width: 90%;
         
