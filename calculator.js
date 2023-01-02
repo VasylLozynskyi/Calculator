@@ -3,14 +3,17 @@ let div = document.querySelector(".all-buttons");
 let previousNumber = "";
 let lastNumber = "";
 let point = "";
+let temp = false;
 div.addEventListener("click", (e) => {
   buttonsHandler(e.target)});
 function buttonsHandler(el) {
       if (!isNaN(+el.textContent)){
         setInput();
       } else {
+        temp = false;
         switch (el.textContent) {
           case "=":
+            temp = true;
             result();
             break;
           case "+":
@@ -74,7 +77,13 @@ function buttonsHandler(el) {
         if(previousNumber && !isNaN(el.textContent)){
           lastNumber += el.textContent;
         }
+        if (!temp){
           input.value += el.textContent;
+        } else {
+          temp = false;
+          input.value = "";
+          input.value += el.textContent;
+        }
         }
 }
 
