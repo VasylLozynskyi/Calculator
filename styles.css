@@ -50,11 +50,10 @@ input {
 }
 @media (max-width: 1024px) {
     .container {
-        width: 90%;
-        
+        width: 360px
     }
     input{
-        width: 100%;
+        width: 360px;
         height: 70px;
         font-size: 40px;
     }
