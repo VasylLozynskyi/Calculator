@@ -16,27 +16,15 @@ function buttonsHandler(el) {
             temp = true;
             result();
             break;
-          case "+":
-            setInput();
-            point = "+";
-            break;
-          case "*":
-            setInput();
-            point = "*";
-            break;
-          case "-":
-            setInput();
-            point = "-";
-            break;
-          case "/":
-            setInput();
-            point = "/";
-            break;
           case "C":
             reset()
             break;
           case "back":
             back()
+            break;
+          default:
+            setInput()
+            point = el.textContent;
             break;
         }
       }
