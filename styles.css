@@ -46,7 +46,7 @@ input {
     width: 100px;
 }
 .button-0 {
-    width: 150px;
+    width: 100px;
 }
 @media (max-width: 1024px) {
     .container {
@@ -63,10 +63,9 @@ input {
         font-size: 30px;
     }
     .button-0{
-        width: 270px;
+        width: 180px;
     }
     .button-C{
-        width: 181px;
+        width: 180px;
     }
-   
 }

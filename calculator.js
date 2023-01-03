@@ -7,7 +7,7 @@ let temp = false;
 div.addEventListener("click", (e) => {
   buttonsHandler(e.target)});
 function buttonsHandler(el) {
-      if (!isNaN(+el.textContent)){
+      if (!isNaN(+el.textContent) || el.textContent == "."){
         setInput();
       } else {
         temp = false;
@@ -48,6 +48,9 @@ function buttonsHandler(el) {
       }
 
       function result() {
+        console.log(previousNumber);
+        console.log(lastNumber);
+        console.log(point);
         if (previousNumber && lastNumber && point) {
         let temp = new Result(previousNumber, lastNumber, point);
         input.value = temp.response();
@@ -59,10 +62,10 @@ function buttonsHandler(el) {
 
       function setInput() {
         if (input.value == "0" && !isNaN(el.textContent)) input.value = "";
-        if (isNaN(el.textContent) && !previousNumber){
+        if (isNaN(+el.textContent) && !previousNumber && el.textContent != "."){
           previousNumber = input.value;
         }
-        if(previousNumber && !isNaN(el.textContent)){
+        if(previousNumber && (!isNaN(el.textContent) || el.textContent == ".")){
           lastNumber += el.textContent;
         }
         if (!temp){
@@ -82,15 +85,26 @@ function buttonsHandler(el) {
       this.point = point;
     }
     response() {
+      let response, fixNum;
+      
       switch (this.point) {
         case "+":
-          return +this.previousNumber + +this.lastNumber;
+          response = (this.previousNumber + +this.lastNumber);
+          break;
         case "*":
-          return +this.previousNumber * +this.lastNumber;
+          response = (this.previousNumber * this.lastNumber);
+          break;
         case "-":
-          return +this.previousNumber - +this.lastNumber;
+          response = (this.previousNumber - this.lastNumber);
+          break;
         case "/":
-          return +this.previousNumber / +this.lastNumber;
+          response = (this.previousNumber / this.lastNumber);
+          break;
       }
+      if (/\./.test(+this.previousNumber) || /\./.test(+this.lastNumber)){
+        response = response.toFixed(6); 
+      } else if (/\./.test(response)) response = response.toFixed(3); 
+      
+      return response;
     }
   }
