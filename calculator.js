@@ -24,12 +24,14 @@ function buttonsHandler(el) {
             back()
             break;
           default:
-            
-            if(!chackfirst && !isNaN(+el.textContent) && el.textContent != "-"){
-              el.textContent == "";
+            console.log(chackfirst);
+            console.log(isNaN(+el.textContent));
+            if(!chackfirst && el.textContent != "-" && !isNaN(+el.textContent)){
             } else if (!chackfirst && el.textContent === "-"){
               chackfirst = true;
-            } else  { point = el.textContent;}
+            } else { 
+              point = el.textContent;
+            }
             setInput();
             break;
         }
@@ -78,6 +80,7 @@ function buttonsHandler(el) {
           input.value = "";
           input.value += el.textContent;
         }
+        if (input.value == "*" || input.value == "/" || input.value == "+") input.value = "";
       }
 }
 
