@@ -4,6 +4,7 @@ let previousNumber = "";
 let lastNumber = "";
 let point = "";
 let temp = false;
+let chackfirst = false;
 div.addEventListener("click", (e) => {
   buttonsHandler(e.target)});
 function buttonsHandler(el) {
@@ -23,8 +24,13 @@ function buttonsHandler(el) {
             back()
             break;
           default:
-            setInput()
-            point = el.textContent;
+            
+            if(!chackfirst && !isNaN(+el.textContent) && el.textContent != "-"){
+              el.textContent == "";
+            } else if (!chackfirst && el.textContent === "-"){
+              chackfirst = true;
+            } else  { point = el.textContent;}
+            setInput();
             break;
         }
       }
@@ -48,26 +54,23 @@ function buttonsHandler(el) {
       }
 
       function result() {
-        console.log(previousNumber);
-        console.log(lastNumber);
-        console.log(point);
         if (previousNumber && lastNumber && point) {
-        let temp = new Result(previousNumber, lastNumber, point);
-        input.value = temp.response();
-        previousNumber = ""
-        lastNumber = ""
-        point = ""
-        } else throw new Error("don't have any of values")
+          let result = new Result(previousNumber, lastNumber, point);
+          input.value = result.response();
+          previousNumber = "";
+          lastNumber = "";
+          point = "";
+        } else throw new Error("don't have any of values");
       }
 
       function setInput() {
         if (input.value == "0" && !isNaN(el.textContent)) input.value = "";
         if (isNaN(+el.textContent) && !previousNumber && el.textContent != "."){
           previousNumber = input.value;
-        }
-        if(previousNumber && (!isNaN(el.textContent) || el.textContent == ".")){
+        } else if(previousNumber && (!isNaN(el.textContent) || el.textContent == ".")){
           lastNumber += el.textContent;
         }
+         
         if (!temp){
           input.value += el.textContent;
         } else {
@@ -75,7 +78,7 @@ function buttonsHandler(el) {
           input.value = "";
           input.value += el.textContent;
         }
-        }
+      }
 }
 
   class Result{
@@ -85,11 +88,11 @@ function buttonsHandler(el) {
       this.point = point;
     }
     response() {
-      let response, fixNum;
+      let response;
       
       switch (this.point) {
         case "+":
-          response = (this.previousNumber + +this.lastNumber);
+          response = (+this.previousNumber + +this.lastNumber);
           break;
         case "*":
           response = (this.previousNumber * this.lastNumber);
@@ -104,7 +107,6 @@ function buttonsHandler(el) {
       if (/\./.test(+this.previousNumber) || /\./.test(+this.lastNumber)){
         response = response.toFixed(6); 
       } else if (/\./.test(response)) response = response.toFixed(3); 
-      
       return response;
     }
   }
